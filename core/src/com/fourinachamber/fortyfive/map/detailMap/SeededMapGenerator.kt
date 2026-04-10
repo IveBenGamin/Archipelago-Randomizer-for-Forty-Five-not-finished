@@ -555,7 +555,7 @@ class SeededMapGenerator(
                     points.add(pointToAdd)
                 }
             }
-            points.removeFirst()
+            points.removeAt(0)
         }
 
         /**

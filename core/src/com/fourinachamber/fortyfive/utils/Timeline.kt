@@ -63,7 +63,7 @@ class Timeline(private val _actions: MutableList<TimelineAction> = mutableListOf
             first.update(this)
             if (first.isFinished(this)) {
                 first.end(this)
-                _actions.removeFirst()
+                _actions.removeAt(0)
                 for (action in pushActionsBuffer) _actions.add(0, action)
                 pushActionsBuffer.clear()
                 if (_actions.isEmpty()) break

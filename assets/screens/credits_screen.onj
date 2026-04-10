@@ -372,6 +372,33 @@ root: $Box {
         },
     ],
 
+    $Box {
+        styles: [
+            {
+                marginTop: creditOffset#points,
+                width: (worldWidth * 0.6)#points,
+                flexDirection: flexDirection.column,
+                alignItems: align.center,
+            }
+        ]
+    } children [
+         $Label {
+            font: "red_wing_bmp",
+            text: "Bullet Art",
+            isDistanceField: false,
+            fontScale: 0.45,
+            align: "center",
+            color: color.red,
+        },
+        $Label {
+            font: "roadgeek",
+            text: "Philip Jankovic & Marlen Seelos",
+            isDistanceField: true,
+            fontScale: 1.4,
+            color: color.forty_white,
+        },
+    ],
+
 
     $Box {
         styles: [
@@ -443,6 +470,41 @@ root: $Box {
             ],
             font: "roadgeek",
             text: "Nenad, Simon,\nGitti, Dragan, Danji,\nLena, Emmi, Pippi,\nDavid Q., Anton, Lisa,\nAna, Emma, Philipp,\nCyprian, Mario,\nProf. Doppler,\n5BI (HTL3R 2023/24),\nScoutgroup 14 Raro,\nThe osq Team,\nThe Warden of Time Team",
+            align: "center",
+            wrap: true,
+            isDistanceField: true,
+            fontScale: 1.4,
+            color: color.forty_white,
+        },
+    ],
+
+
+    $Box {
+        styles: [
+            {
+                marginTop: creditOffset#points,
+                width: (worldWidth * 0.6)#points,
+                flexDirection: flexDirection.column,
+                alignItems: align.center,
+            }
+        ]
+    } children [
+         $Label {
+            font: "red_wing_bmp",
+            text: "Bullet Contest Winners",
+            isDistanceField: false,
+            fontScale: 0.45,
+            align: "center",
+            color: color.red,
+        },
+        $Label {
+            styles: [
+                {
+                    width: (worldWidth * 0.5)#points,
+                }
+            ],
+            font: "roadgeek",
+            text: "@hiverakani_kiv_empor, @killgorndigrogen, @kengored",
             align: "center",
             wrap: true,
             isDistanceField: true,

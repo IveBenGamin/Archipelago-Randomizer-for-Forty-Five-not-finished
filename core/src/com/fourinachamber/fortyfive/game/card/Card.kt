@@ -97,8 +97,8 @@ class Card(
     val flavourText: String,
     val shortDescription: String,
     val type: Type,
-    val baseDamage: Int,
-    val cost: Int,
+    var baseDamage: Int,
+    var cost: Int,
     val rightClickCost: Int?,
     val price: Int,
     val effects: List<Effect>,
@@ -153,6 +153,14 @@ class Card(
         private set
     var isAlwaysAtTop: Boolean = false
         private set
+    var isRandom: Boolean = false
+        private set
+
+    fun rollRandom() {
+        if (!isRandom) return
+        baseDamage = (0..40).random()
+        cost = (0..5).random()
+    }
 
     fun shouldRemoveAfterShot(controller: GameController): Boolean = !(
         (isEverlasting && !controller.encounterModifiers.any { it.disableEverlasting() }) ||
@@ -273,7 +281,7 @@ class Card(
             val effect = protectingModifiers.first()
             val newEffect = effect.copy(second = effect.second - 1)
             if (newEffect.second == 0) {
-                protectingModifiers.removeFirst()
+                protectingModifiers.removeAt(0)
             } else {
                 protectingModifiers[0] = newEffect
             }
@@ -621,6 +629,7 @@ class Card(
                 "rotten" -> card.isRotten = true
                 "alwaysAtBottom" -> card.isAlwaysAtBottom = true
                 "alwaysAtTop" -> card.isAlwaysAtTop = true
+                "random" -> card.isRandom = true
 
                 else -> throw RuntimeException("unknown trait effect $effect")
             }

@@ -138,7 +138,7 @@ class MapScreenController(onj: OnjObject) : ScreenController() {
     private fun hideTutorialPopupActor() {
         currentlyShowingTutorialText = false
         screen.leaveState(showTutorialActorScreenState)
-        tutorialTextParts.removeFirst()
+        tutorialTextParts.removeAt(0)
         updateTutorialText() // prevents the tutorial popup from flickering for one frame
     }
 

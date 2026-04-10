@@ -45,6 +45,9 @@ object CardsNamespace { // TODO: something like GameNamespace would be a more ac
             "sourceCardDamage" with OnjEffectValue { controller, _, triggerInformation ->
                 triggerInformation!!.sourceCard!!.curDamage(controller)
             }
+            "uniqueCardsInStack" with OnjEffectValue { controller, _, _ ->
+                controller.uniqueCardsInStack()
+            }
         }
     )
 
@@ -381,6 +384,11 @@ object CardsNamespace { // TODO: something like GameNamespace would be a more ac
         return OnjPassiveEffect(PassiveEffectPrototype {
             PassiveEffect.BottomToTopCard(predicate)
         })
+    }
+
+    @RegisterOnjFunction(schema = "use Cards; params: [string, BulletSelector]")
+    fun swapWith(trigger: OnjString, bulletSelector: OnjBulletSelector): OnjEffect {
+        return OnjEffect(Effect.SwapWith(triggerOrError(trigger.value), bulletSelector.value))
     }
 
     @Suppress("NAME_SHADOWING")

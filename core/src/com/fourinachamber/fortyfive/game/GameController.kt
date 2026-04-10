@@ -396,7 +396,7 @@ class GameController(onj: OnjNamedObject) : ScreenController() {
         FortyFiveLogger.debug(logTag, "hiding tutorial popup")
         currentlyShowingTutorialText = false
         curScreen.leaveState(showTutorialActorScreenState)
-        tutorialTextParts.removeFirst()
+        tutorialTextParts.removeAt(0)
         updateTutorialText() // prevents the tutorial popup from flickering for one frame
     }
 
@@ -955,6 +955,24 @@ class GameController(onj: OnjNamedObject) : ScreenController() {
         return cur
     }
 
+    fun uniqueCardsInStack(): Int {
+        val names = cardStack.map { it.name }
+        return names.count { name -> names.count { it == name } == 1 }
+    }
+
+    fun swapBulletsInRevolverTimeline(first: Card, second: Card): Timeline = Timeline.timeline {
+        action {
+            val firstSlot = revolver.slots.find { it.card === first }
+                ?: throw RuntimeException("cant swap card ($first) that isn't in the revolver")
+            val secondSlot = revolver.slots.find { it.card === second }
+                ?: throw RuntimeException("cant swap card ($second) that isn't in the revolver")
+            revolver.removeCard(first)
+            revolver.removeCard(second)
+            revolver.setCard(firstSlot.num, second)
+            revolver.setCard(secondSlot.num, first)
+        }
+    }
+
     @MainThreadOnly
     fun endTurn() {
         if (hasWon) {
@@ -1286,6 +1304,7 @@ class GameController(onj: OnjNamedObject) : ScreenController() {
             card = (if (!fromBottom) _cardStack.removeFirstOrNull() else _cardStack.removeLastOrNull())
                 ?: defaultBullet.create(curScreen)
             cardHand.addCard(card!!)
+            card!!.rollRandom()
             FortyFiveLogger.debug(logTag, "card was drawn; card = $card; cardsToDraw = $cardsToDraw")
             cardsDrawn++
         }
